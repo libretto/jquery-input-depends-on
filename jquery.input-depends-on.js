@@ -26,6 +26,26 @@
       return e.removeClass(options.cssClass).attr({disabled: null}).trigger("enable");
     };
     
+    var find_matching_value = function(input){
+      var ret = null;
+      
+      // if parent value is an array...
+      if(input instanceof Array){
+        $.each(input, function(k, v){
+          if(v in values){
+            ret = v;
+          }
+        });
+      }
+      // parent value is a non-array
+      else {
+        if(input in values){
+          ret = input;
+        }
+      }
+      return ret;
+    };
+    
     // options
     options = $.extend({}, $.fn.inputDependsOn.defaults, options || {});
     
@@ -42,11 +62,10 @@
         
         .bind("change", function(){
           
-          var v = parent.val();
+          var v = find_matching_value(parent.val());
           
           // parent must be enabled to change children
-          if(parent.is(":not(:disabled)") && v in values){
-            
+          if(parent.is(":not(:disabled)") && v != null){
             // call private method
             // e.g., this["enable"](child)
             self[values[v]](child);
