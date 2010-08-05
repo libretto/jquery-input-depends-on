@@ -27,7 +27,7 @@
     };
     
     // options
-    options = $.extend({}, $.fn.dependsOn.defaults, options || {});
+    options = $.extend({}, $.fn.inputDependsOn.defaults, options || {});
     
     // find parent
     var parent = $(id);
@@ -73,7 +73,7 @@
     return this;
   };
   
-  $.fn.dependsOn.defaults = {
+  $.fn.inputDependsOn.defaults = {
     init: "disable",
     cssClass: "disabled"
   };
